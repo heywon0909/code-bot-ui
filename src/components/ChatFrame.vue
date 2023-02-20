@@ -12,7 +12,13 @@
         </div>
       </div>
       <!--chat-->
-      <chat-content/>
+      <div class="h-full">
+        <template v-if="isExist">
+          <div v-for="(chat,index) in chatContent" :key="index" >
+            <chat-content :chat="chat" />
+          </div>
+        </template>
+      </div>
       <!--input-->
       <chat-input/>
     </div>
@@ -21,8 +27,17 @@
 <script>
 import ChatContent from './ChatContent.vue'
 import ChatInput from './ChatInput.vue'
+import { computed } from "vue";
+import { useStore } from "vuex";
 export default {
   components: { ChatContent, ChatInput },
+  setup() {
+    const store = useStore();
+    const isExist = computed(() => chatContent.value.length >0);
+    const chatContent = computed(() => store.getters.getChatContent);
+    return {chatContent,isExist}
+
+  }
 
 }
 </script>

@@ -10,6 +10,9 @@
 import ChatFrame from './components/ChatFrame.vue';
 
 export default {
+  created() {
+  
+  },
   name: "App",
   components: {ChatFrame},
 };
