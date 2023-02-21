@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { reactive } from "vue";
+import { reactive, computed } from "vue";
 import { useStore } from "vuex";
 export default {
     setup() {
@@ -21,13 +21,19 @@ export default {
             console.log('e', e.target.value);
             searchText = e.target.value;
         }
+        const generateUniqueId = computed(() => {
+            const timestamp = Date.now();
+            const randomNumber = Math.random();
+            const hexadeciamlString = randomNumber.toString(16);
+            return `id${timestamp}-${hexadeciamlString}`;
+        }) 
         const searchResult = (searchText) => {
             console.log('결과', searchText);
-            store.commit("setChatContent", {question:searchText,answer:''});
+            store.commit("setChatContent", {id:generateUniqueId,question:searchText,answer:''});
             searchText = ""
             document.querySelector('#prompt').value =""
         }
-        return {searchText,setSearchText,searchResult}
+        return {searchText,setSearchText,searchResult,generateUniqueId}
     }
 
 }

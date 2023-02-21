@@ -33,7 +33,8 @@ export default {
   components: { ChatContent, ChatInput },
   setup() {
     const store = useStore();
-    const isExist = computed(() => chatContent.value.length >0);
+   
+    const isExist = computed(() => !_.isEmpty(chatContent.value));
     const chatContent = computed(() => store.getters.getChatContent);
     return {chatContent,isExist}
 
