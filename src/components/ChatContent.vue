@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="flex w-full h-auto text-white p-3 h-max">
-        <div class="grow-1 break-all bg-sky-600 font-medium p-2 w-full" id="bot">
+        <div class="grow-1 break-all bg-sky-600 font-medium p-2 w-full" :id="`bot${index}`">
         
         </div>
          <div class="shrink-0 px-2">
@@ -24,7 +24,8 @@ import { computed, onMounted, toRefs } from "vue";
 import { useStore } from "vuex";
 export default {
   props: {
-    chat:Object
+    chat: Object,
+    index:Number
   },
   setup(props) {
     const store = useStore();
@@ -43,7 +44,7 @@ export default {
     })
     
     const onLoadAnswer = () => {
-      let bot_text = document.getElementById('bot');
+      let bot_text = document.getElementById(`bot${props.index}`);
       loadInterval = setInterval(() => {
         bot_text.innerHTML += '.';
         if (bot_text.textContent === '....') {

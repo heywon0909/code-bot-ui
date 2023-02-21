@@ -15,7 +15,7 @@
       <div class="h-full">
         <template v-if="isExist">
           <div v-for="(chat,index) in chatList" :key="index" >
-            <chat-content :chat="chat" />
+            <chat-content :chat="chat" :index="index" />
           </div>
         </template>
       </div>
