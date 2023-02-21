@@ -36,11 +36,7 @@ export default {
       console.log('isBot',isBot.value)
       if (isBot.value === false) {  
         setAnswer();
-      } else {
-        console.log('대답')
-      }
-      
-
+      } 
     })
     
     const setAnswer = () => {
