@@ -20,14 +20,16 @@
 </template>
 
 <script>
-import { computed,onMounted,toRefs } from "vue";
+import { computed, onMounted, toRefs } from "vue";
+import { useStore } from "vuex";
 export default {
   props: {
     chat:Object
   },
   setup(props) {
+    const store = useStore();
     console.log('question', props.chat)
-    let { question, answer } = toRefs(props.chat);
+    let { id,question, answer } = toRefs(props.chat);
      console.log('question', question.value,answer.value)
     
     let loadInterval;
@@ -35,11 +37,12 @@ export default {
     onMounted(() => {
       console.log('isBot',isBot.value)
       if (isBot.value === false) {  
-        setAnswer();
+        onLoadAnswer();
+        store.dispatch('getResponse',{ id: id.value, question: question.value });
       } 
     })
     
-    const setAnswer = () => {
+    const onLoadAnswer = () => {
       let bot_text = document.getElementById('bot');
       loadInterval = setInterval(() => {
         bot_text.innerHTML += '.';
@@ -49,10 +52,11 @@ export default {
       }, 300);
       
     }
+    
 
-    return {isBot,setAnswer,loadInterval}
+    return {isBot,onLoadAnswer,loadInterval}
 
-  }
+  },
 
 }
 </script>

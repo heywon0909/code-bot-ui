@@ -14,7 +14,7 @@
       <!--chat-->
       <div class="h-full">
         <template v-if="isExist">
-          <div v-for="(chat,index) in chatContent" :key="index" >
+          <div v-for="(chat,index) in chatList" :key="index" >
             <chat-content :chat="chat" />
           </div>
         </template>
@@ -34,9 +34,9 @@ export default {
   setup() {
     const store = useStore();
    
-    const isExist = computed(() => !_.isEmpty(chatContent.value));
-    const chatContent = computed(() => store.getters.getChatContent);
-    return {chatContent,isExist}
+    const isExist = computed(() => !_.isEmpty(chatList.value));
+    const chatList = computed(() => store.getters.getChatContent);
+    return {chatList,isExist}
 
   }
 
