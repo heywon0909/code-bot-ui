@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { computed, onMounted, toRefs } from "vue";
+import { computed, onMounted, reactive, toRefs,watch } from "vue";
 import { useStore } from "vuex";
 export default {
   props: {
@@ -32,8 +32,9 @@ export default {
     console.log('question', props.chat)
     let { id,question, answer } = toRefs(props.chat);
      console.log('question', question.value,answer.value)
-    
-    let loadInterval;
+
+     
+    let loadInterval = reactive(null);
     const isBot = computed(() => _.isEmpty(answer));
     onMounted(() => {
       console.log('isBot',isBot.value)
@@ -53,9 +54,24 @@ export default {
       }, 300);
       
     }
-    
 
-    return {isBot,onLoadAnswer,loadInterval}
+    const onSplitBotAnswer = (text) => {
+      let bot_text = document.getElementById(`bot${props.index}`);
+      for (let i = 0; i < text.length; i++){
+        bot_text.innerHTML += text[i];
+      }
+    }
+
+     watch(answer, (cur, prev) => {
+      if (!_.isEmpty(cur)) {
+        clearInterval(loadInterval);
+        loadInterval = null;
+        onSplitBotAnswer(cur);
+      }
+        console.log('prev',prev)
+    })
+
+    return {isBot,onLoadAnswer,loadInterval,onSplitBotAnswer}
 
   },
 

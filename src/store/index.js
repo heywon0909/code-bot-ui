@@ -15,7 +15,7 @@ export default createStore({
             state.chatText.push(payload);
         },
         setBotText(state, payload) {
-            state.chatText[state.chatText.length-1] = payload;
+            state.chatText[state.chatText.length-1].answer = payload.answer;
         }
     },
     actions: {
@@ -26,15 +26,17 @@ export default createStore({
                 let url = 'http://localhost:5000/'
                 let {data,statusText} = await axios.post(url, { prompt: question }, {
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                         'withCredentials':true
                     }
                 });
                
                 if (statusText === 'OK') {
-                    console.log('result',data)
+                    console.log('result',JSON.stringify(data.bot).trim())
+                    context.commit('setBotText',{answer:JSON.stringify(data.bot).trim()})
                 }
                 
-                // context.commit('setCha')
+                
             } catch (error) {
                 console.warn(error);
             }
