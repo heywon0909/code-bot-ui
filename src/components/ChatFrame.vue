@@ -1,10 +1,10 @@
 <template>
-  <div class="bg-slate-800 w-full md:w-1/3 rounded-md h-screen flex flex-col drop-shadow-xl">
+  <div class="bg-slate-800 w-2/3 md:w-1/3 rounded-md h-5/6 flex flex-col drop-shadow-xl">
     <!--header-->
     <div
-      class="text-sky-500 text-xl font-semibold w-full p-3 h-12 border-b-2 flex"
+      class="text-sky-500 text-xl font-semibold w-full p-3 h-20 border-b-2 flex"
     >
-      <p class="grow w-5/6 items-center">CodeBot</p>
+      <p class="grow w-5/6 flex items-center">CodeBot</p>
       <div class="float-left grow-0 justify-center items-center flex space-x-3">
         <div class="w-2 h-2 bg-sky-500 rounded-full"></div>
         <div class="w-2 h-2 bg-sky-500 rounded-full"></div>
