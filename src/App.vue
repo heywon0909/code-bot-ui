@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col items-center justify-center w-screen h-screen bg-gray-100 text-gray-800 p-10 drop-shadow-sm"
+    class="flex flex-col items-center justify-center w-screen h-screen bg-gray-100 text-gray-800 p-10"
   >
   <chat-frame/>
   </div>

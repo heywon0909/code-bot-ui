@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-slate-800 w-2/3 rounded-md h-screen flex flex-col">
+  <div class="bg-slate-800 w-full md:w-1/3 rounded-md h-screen flex flex-col drop-shadow-xl">
     <!--header-->
     <div
       class="text-sky-500 text-xl font-semibold w-full p-3 h-12 border-b-2 flex"
