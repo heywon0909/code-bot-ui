@@ -32,8 +32,8 @@ export default createStore({
                 });
                
                 if (statusText === 'OK') {
-                    console.log('result',JSON.stringify(data.bot).trim())
-                    context.commit('setBotText',{answer:JSON.stringify(data.bot).trim()})
+                    console.log('result',data.bot.trim())
+                    context.commit('setBotText',{answer:data.bot.trim()})
                 }
                 
                 

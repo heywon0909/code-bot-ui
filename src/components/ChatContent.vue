@@ -57,9 +57,18 @@ export default {
 
     const onSplitBotAnswer = (text) => {
       let bot_text = document.getElementById(`bot${props.index}`);
-      for (let i = 0; i < text.length; i++){
-        bot_text.innerHTML += text[i];
-      }
+      let index = 0;
+      loadInterval = setInterval(() => { 
+        if (index < text.length) {
+          console.log('text',text[index])
+            bot_text.innerHTML += text[index];
+          index++;
+        } else {
+          clearInterval(loadInterval);
+          loadInterval = null;
+        }
+      },300)
+    
     }
 
      watch(answer, (cur, prev) => {
