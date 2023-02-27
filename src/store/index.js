@@ -23,7 +23,7 @@ export default createStore({
             let { id, question } = payload;
             console.log('id',id)
             try {
-                let url = 'https://codebot-v8eo.onrender.com'
+                let url = 'https://code-bot-ivzc.onrender.com'
                 let {data,statusText} = await axios.post(url, { prompt: question }, {
                     headers: {
                         'Content-Type': 'application/json',
