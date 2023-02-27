@@ -1,92 +1,86 @@
 <template>
   <div class="grow">
-      <div class="flex w-full text-white p-3 h-max">
-        <div class="shrink-0 px-2">
-          <img src="../assets/image/profile.png" class="w-12" id="user"/>
-        </div>
-        <div class="grow-1 break-all bg-gray-700 font-medium p-2 w-full">
-          {{chat.question }}
-        </div>
+    <div class="flex w-full text-white p-3 h-max">
+      <div class="shrink-0 px-3 py-2">
+        <img src="../assets/image/profile.png" class="w-12" id="user" />
       </div>
-      <div class="flex w-full h-auto text-white p-3 h-max">
-        <div class="grow-1 break-all bg-sky-600 font-medium p-2 w-full" :id="`bot${index}`">
-        
-        </div>
-         <div class="shrink-0 px-2">
-          <img src="../assets/image/robot.png" class="w-12" />
-        </div>
+      <div
+        class="grow-1 break-all bg-gray-700 font-medium p-2 w-full h-20 rounded-br-lg rounded-tr-lg"
+      >
+        {{ chat.question }}
       </div>
-     </div> 
+    </div>
+    <div class="flex w-full h-auto text-white p-3 h-max">
+      <div
+        class="grow-1 break-all bg-sky-600 font-medium p-2 w-full h-20"
+        :id="`bot${index}`"
+      ></div>
+      <div class="shrink-0 px-2">
+        <img src="../assets/image/robot.png" class="w-12" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import { computed, onMounted, reactive, toRefs,watch } from "vue";
-import { useStore } from "vuex";
+import { computed, onMounted, ref, toRefs, watch } from "vue";
 export default {
   props: {
     chat: Object,
-    index:Number
+    index: Number,
   },
-  setup(props) {
-    const store = useStore();
-    console.log('question', props.chat)
-    let { id,question, answer } = toRefs(props.chat);
-     console.log('question', question.value,answer.value)
+  setup(props, context) {
+    console.log("question", props.chat);
+    let { id, question, answer } = toRefs(props.chat);
+    console.log("question", question.value, answer.value);
 
-     
-    let loadInterval = reactive(null);
+    let loadInterval = ref(null);
     const isBot = computed(() => _.isEmpty(answer));
     onMounted(() => {
-      console.log('isBot',isBot.value)
-      if (isBot.value === false) {  
+      console.log("isBot", isBot.value);
+      if (isBot.value === false) {
         onLoadAnswer();
-        store.dispatch('getResponse',{ id: id.value, question: question.value });
-      } 
-    })
-    
+        context.emit("settingQnA", { id: id.value, question: question.value });
+      }
+    });
+
     const onLoadAnswer = () => {
       let bot_text = document.getElementById(`bot${props.index}`);
       loadInterval = setInterval(() => {
-        bot_text.innerHTML += '.';
-        if (bot_text.textContent === '....') {
-          bot_text.innerHTML = '';
+        bot_text.innerHTML += ".";
+        if (bot_text.textContent === "....") {
+          bot_text.innerHTML = "";
         }
       }, 300);
-      
-    }
+    };
 
     const onSplitBotAnswer = (text) => {
       let bot_text = document.getElementById(`bot${props.index}`);
       let index = 0;
-      loadInterval = setInterval(() => { 
+      loadInterval = setInterval(() => {
         if (index < text.length) {
-          console.log('text',text[index])
-            bot_text.innerHTML += text[index];
+          console.log("text", text[index]);
+          bot_text.innerHTML += text[index];
           index++;
         } else {
           clearInterval(loadInterval);
           loadInterval = null;
         }
-      },300)
-    
-    }
+      }, 300);
+    };
 
-     watch(answer, (cur, prev) => {
+    watch(answer, (cur, prev) => {
       if (!_.isEmpty(cur)) {
         clearInterval(loadInterval);
         loadInterval = null;
         onSplitBotAnswer(cur);
       }
-        console.log('prev',prev)
-    })
+      console.log("prev", prev);
+    });
 
-    return {isBot,onLoadAnswer,loadInterval,onSplitBotAnswer}
-
+    return { isBot, onLoadAnswer, loadInterval, onSplitBotAnswer };
   },
-
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

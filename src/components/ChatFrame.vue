@@ -1,5 +1,7 @@
 <template>
-  <div class="bg-slate-800 w-2/3 md:w-1/3 rounded-md h-5/6 flex flex-col drop-shadow-xl">
+  <div
+    class="bg-slate-800 w-2/3 md:w-1/3 rounded-md h-5/6 flex flex-col drop-shadow-xl"
+  >
     <!--header-->
     <div
       class="text-sky-500 text-xl font-semibold w-full p-3 h-20 border-b-2 flex"
@@ -15,7 +17,11 @@
     <div class="h-full overflow-y-auto">
       <template v-if="isExist">
         <div v-for="(chat, index) in chatList" :key="index">
-          <chat-content :chat="chat" :index="index" />
+          <chat-content
+            :chat="chat"
+            :index="index"
+            @settingQnA="getBotAnswer"
+          />
         </div>
       </template>
     </div>
@@ -34,9 +40,18 @@ export default {
   setup() {
     const store = useStore();
 
+    const getBotAnswer = (params) => {
+      let { id, question } = params;
+
+      store.dispatch("getResponse", {
+        id: id,
+        question: question,
+      });
+    };
+
     const isExist = computed(() => !_.isEmpty(chatList.value));
     const chatList = computed(() => store.getters.getChatContent);
-    return { chatList, isExist };
+    return { chatList, isExist, getBotAnswer };
   },
 };
 </script>
