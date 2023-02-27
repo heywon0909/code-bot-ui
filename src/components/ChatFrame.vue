@@ -26,7 +26,7 @@
       </template>
     </div>
     <!--input-->
-    <chat-input />
+    <chat-input @settingUserText="getUserText" />
   </div>
 </template>
 
@@ -35,6 +35,7 @@ import ChatContent from "./ChatContent.vue";
 import ChatInput from "./ChatInput.vue";
 import { computed } from "vue";
 import { useStore } from "vuex";
+import generateUniqueId from "../common/uniqueId";
 export default {
   components: { ChatContent, ChatInput },
   setup() {
@@ -49,9 +50,17 @@ export default {
       });
     };
 
+    const getUserText = (param) => {
+      store.commit(
+        "setUserText",
+        { id: generateUniqueId(), question: param, answer: "" },
+        { root: true }
+      );
+    };
+
     const isExist = computed(() => !_.isEmpty(chatList.value));
     const chatList = computed(() => store.getters.getChatContent);
-    return { chatList, isExist, getBotAnswer };
+    return { chatList, isExist, getBotAnswer, getUserText };
   },
 };
 </script>
