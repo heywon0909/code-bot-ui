@@ -26,8 +26,7 @@ export default createStore({
                 let url = 'https://code-bot-ivzc.onrender.com/'
                 let {data,statusText} = await axios.post(url, { prompt: question }, {
                     headers: {
-                        'Content-Type': 'application/json',
-                         'withCredentials':true
+                        'Content-Type': 'application/json'
                     }
                 });
                
