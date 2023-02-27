@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-slate-800 w-2/3 md:w-1/3 rounded-md h-5/6 flex flex-col drop-shadow-xl"
+    class="bg-slate-800 w-full md:w-3/4 xl:w-1/3 rounded-md h-5/6 flex flex-col drop-shadow-xl"
   >
     <!--header-->
     <div

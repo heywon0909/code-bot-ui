@@ -5,17 +5,17 @@
         <img src="../assets/image/profile.png" class="w-12" id="user" />
       </div>
       <div
-        class="grow-1 break-all bg-gray-700 font-medium p-2 w-full h-20 rounded-br-lg rounded-tr-lg"
+        class="grow-1 break-all bg-gray-700 font-medium p-2 w-full min-h-min h-full rounded-br-lg rounded-tr-lg"
       >
         {{ chat.question }}
       </div>
     </div>
-    <div class="flex w-full h-auto text-white p-3 h-max">
+    <div class="flex w-full h-auto text-white p-3  h-max">
       <div
-        class="grow-1 break-all bg-sky-600 font-medium p-2 w-full h-20"
+        class="grow-1 break-all bg-sky-600 font-medium p-2 w-full min-h-min rounded-bl-lg rounded-tl-lg"
         :id="`bot${index}`"
       ></div>
-      <div class="shrink-0 px-2">
+      <div class="shrink-0 px-3 py-2">
         <img src="../assets/image/robot.png" class="w-12" />
       </div>
     </div>
@@ -57,6 +57,7 @@ export default {
     const onSplitBotAnswer = (text) => {
       let bot_text = document.getElementById(`bot${props.index}`);
       let index = 0;
+   
       loadInterval = setInterval(() => {
         if (index < text.length) {
           console.log("text", text[index]);
@@ -66,7 +67,7 @@ export default {
           clearInterval(loadInterval);
           loadInterval = null;
         }
-      }, 300);
+      }, 100);
     };
 
     watch(answer, (cur, prev) => {
