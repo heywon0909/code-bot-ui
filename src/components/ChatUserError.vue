@@ -28,7 +28,6 @@ export default {
     setError: String,
   },
   setup(props, context) {
-    console.log("contenxt", context);
 
     const errorClose = () => {
       context.emit("close");

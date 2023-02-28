@@ -30,14 +30,14 @@ export default {
     index: Number,
   },
   setup(props, context) {
-    console.log("question", props.chat);
+ 
     let { id, question, answer } = toRefs(props.chat);
-    console.log("question", question.value, answer.value);
+    
 
     let loadInterval = ref(null);
     const isBot = computed(() => _.isEmpty(answer));
     onMounted(() => {
-      console.log("isBot", isBot.value);
+    
       if (isBot.value === false) {
         onLoadAnswer();
         context.emit("settingQnA", { id: id.value, question: question.value });
@@ -60,7 +60,6 @@ export default {
    
       loadInterval = setInterval(() => {
         if (index < text.length) {
-          console.log("text", text[index]);
           bot_text.innerHTML += text[index];
           index++;
         } else {
@@ -70,7 +69,7 @@ export default {
       }, 100);
     };
 
-    watch(answer, (cur, prev) => {
+    watch(answer, (cur,prev) => {
       if (!_.isEmpty(cur)) {
         clearInterval(loadInterval);
         loadInterval = null;
